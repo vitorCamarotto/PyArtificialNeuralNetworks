@@ -6,8 +6,8 @@ print('generating paths...')
 def generate_paths():
     # Define data source and destination details
     DatastoreFolderTargetName = 'model training'
-    TrainingFileNameCNN = 'Room_75_1Min_Train_Jan_Jul.csv'
-    TrainingFileNameMLP = 'room75_1H_train_jan_jul.csv'
+    TrainingFileNameCNN = 'CNN_1Min_Train_Jan_Jul.csv'
+    TrainingFileNameMLP = 'MLP_1H_train_jan_jul.csv'
     TargetFileName = 'room75_result_train_jan_jul.csv'
 
     # Get the directory of the current script

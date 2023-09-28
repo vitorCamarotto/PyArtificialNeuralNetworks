@@ -6,8 +6,8 @@ import numpy as np
 
 print('normalizing data...')
 
-def read_csv_adjusted_delimiter(file_path):
-    return pd.read_csv(file_path, delimiter=',', decimal='.')
+def read_csv_adjusted_delimiter(file_path, delimiter, decimal):
+    return pd.read_csv(file_path, delimiter=delimiter, decimal=decimal)
 
 def normalize_data(data, method='range'):
     if method == 'range':
@@ -22,19 +22,19 @@ def normalize_data(data, method='range'):
 
 
 def save_normalized_data(paths):
-    cnn_csv_data = read_csv_adjusted_delimiter(paths['TrainingPathCNN']).iloc[1:, 2:].values
+    cnn_csv_data = read_csv_adjusted_delimiter(paths['TrainingPathCNN'], delimiter=',', decimal='.').iloc[1:, 2:].values
     xCNN, norm_detailsCNN = normalize_data(cnn_csv_data)
 
     with open(os.path.join(paths['DestinationFolder'], 'norm_detailsCNN.npy'), 'wb') as f:
         np.save(f, norm_detailsCNN)
 
-    mlp_csv_data = read_csv_adjusted_delimiter(paths['TrainingPathMLP']).iloc[1:, 2:].values
+    mlp_csv_data = read_csv_adjusted_delimiter(paths['TrainingPathMLP'], ';', ',').iloc[1:, 2:].values
     xMLP, norm_detailsMLP = normalize_data(mlp_csv_data)
 
     with open(os.path.join(paths['DestinationFolder'], 'norm_detailsMLP.npy'), 'wb') as f:
         np.save(f, norm_detailsMLP)
 
-    target_csv_data = read_csv_adjusted_delimiter(paths['TargetPath']).iloc[1:, 2:3].values
+    target_csv_data = read_csv_adjusted_delimiter(paths['TargetPath'],  ';', ',').iloc[1:, 2:3].values
     target, norm_detailsTarget = normalize_data(target_csv_data)
 
     with open(os.path.join(paths['folderOfResults'], 'norm_detailsTargets.npy'), 'wb') as f:
